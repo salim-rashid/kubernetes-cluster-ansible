@@ -1,0 +1,30 @@
+---
+
+- hosts: test-kubernetes-nodes #Modify this your own kubernetes nodes group.
+  become: true
+  tasks:
+  - name: Initialize the Kubernetes cluster using kubeadm
+    command: kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=172.168.100.4
+
+  - name: Creating .kube directory for a user on a master node
+    command: mkdir -p $HOME/.kube
+
+  - name: Copying admin.conf file to ./kube directory
+    copy:
+      src: '/etc/kubernetes/admin.conf'
+      dest: '$HOME/.kube/config'
+      remote_src: yes
+
+  - name: Giving ownership of config file to a user on master node
+    shell: chown $(id -u):$(id -g) $HOME/.kube/config
+
+  - name: Install flannel pod network
+    become: false
+    shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846fefb68bd5f178daf4da3095ccb/Documentation/kube-flannel.yml
+
+  - name: Generate join command
+    command: kubeadm token create --print-join-command
+    register: join_command
+
+  - name: Copy join command to local file named join-command
+    local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
