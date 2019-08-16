@@ -4,13 +4,14 @@ There are multiple ways of automating the provisioning of kubernetes cluser, Thi
 it might not work for you right off the bat because you'll to change some configurations.
 
 There are 3 files in the repo as decribed below
+
     - File name: kubernetes-prerequisities.yml
       Description: Installation & configurations of kubernetes pre-requisities.
 
     - File name: kubernetes-cluster-initialization.yml
       Description: Installing kubelet, kubectl and kubeadm.
 
-    - Fine name: kubernete-cluster-join.yml
+    - Fine name: kubernetes-cluster-join.yml
       Description: Joining the nodes to kubernetes cluster.
 
 I welcome you advise if you feel there is something to improve or change.
