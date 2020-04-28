@@ -14,6 +14,6 @@ There are 3 files in the repo as decribed below
     - Fine name: kubernetes-cluster-join.yml
       Description: Joining the nodes to kubernetes cluster.
 
-I welcome you advise if you feel there is something to improve or change.
+I welcome your advise if you feel there is something to improve or change.
 
 Learning is Sharing! Learning Never Ends!....
